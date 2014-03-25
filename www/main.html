@@ -1,0 +1,370 @@
+  <html>
+
+    <head>
+      <meta charset="utf-8" />
+      <meta name="format-detection" content="telephone=no" />
+      <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+      <link rel="stylesheet" type="text/css" href="css/list.css" />
+      <link rel="stylesheet" type="text/css" href="css/common.css" />
+      <link rel="stylesheet" type="text/css" href="css/kinds.css" />
+      <link rel="stylesheet" type="text/css" href="css/libs/jplayer.blue.monday.css" />
+      <link rel="stylesheet" type="text/css" href="css/libs/contentflow.css" />
+      <title>Jukebox</title>
+    </head>
+
+    <body>
+                  
+      <!-- LEFT MENU -->
+      <div id="left_column">
+        <div class="jukebox_logo"></div>
+        <ul>
+          <li><a href='#search' class="nav">recherche</a></li></br>
+          <li><a href='#last' class="nav">dernieres playlists </br> ajoutees</a></li></br>
+          <li><a href='#kinds' class="nav">playlists genre </br> musical</a></li></br>
+          <li><a href='#readers' class="nav">playlists des </br> lecteurs</a></li></br>
+          <li><a href='#news' class="nav">actualite </br> musicale</a></li></br>
+          <li><a href='#admin' class="nav">mentions </br> legales</a></li>
+        </ul>
+      </div>
+          
+      <!-- RIGHT SIDE  -->
+      <div id="right_side">
+
+      
+        <!-- SEARCH VIEW-->
+        <div id="search" class="ajax_content hide">
+
+          <div class="top small">
+            <div class="pull-left">
+              <div class="search_bar">
+                <input></input>
+                <div class="magnifier"></div>
+              </div>
+            </div>
+            <div class="pull-right unfolded">
+              <div class="comment_bar"></div>
+            </div>
+          </div>
+
+          <div class="middle">
+
+            <!-- playlists -->
+            <div class="pull-left">
+              <div class="list large playlists" id="last_playlists_flow">
+                <table cellpadding="3px">
+                  <thead>
+                    <tr cellspacing="3px">
+                      <th class="small">Vignette</th>
+                      <th class="large">Nom de la playlist</th>
+                      <th class="large">Genre musical</th>
+                      <th class="large">Date de creation</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>	
+              </div>
+            </div>
+
+            <!-- songs -->
+            <div class="pull-right unfolded">
+              <div class="list large songs">
+                <table cellpadding="3px">
+                  <thead>
+                    <tr cellspacing="3px">
+                      <th class="small">Piste</th>
+                      <th class="large">Auteur</th>
+                      <th class="large">Titre</th>
+                      <th class="large">Album</th>
+                      <th class="small">Année</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>	
+                <div class="loader"></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- LAST PLAYLISTS ADDED VIEW -->
+        <div id="last" class="ajax_content">
+          <div class="top large">
+            <div class="album ContentFlow" id="my_flow">
+              <div class="loadIndicator"><div class="indicator"></div></div>
+              <div class="flow">
+                <img class="item" src="img/covers/1.jpg" id="1"/>
+                <img class="item" src="img/covers/2.jpg" id="2"/>
+                <img class="item" src="img/covers/3.jpg" id="1"/>
+                <img class="item" src="img/covers/4.jpg" id="2"/>
+                <img class="item" src="img/covers/5.jpg" id="1"/>
+                <img class="item" src="img/covers/6.jpg" id="2"/>
+                <img class="item" src="img/covers/7.jpg" id="1"/>
+                <img class="item" src="img/covers/8.jpg" id="2"/>
+                <img class="item" src="img/covers/9.png" id="1"/>
+              </div>
+              <div class="globalCaption"></div>
+              <div class="scrollbar"><div class="slider"><div class="position"></div></div></div>
+            </div>
+          </div>
+
+          <div class="middle">
+            <!-- playlists -->
+            <div class="pull-left">
+              <div class="list small playlists">
+                <table cellpadding="3px">
+                  <thead>
+                    <tr cellspacing="3px">
+                      <th class="small">Vignette</th>
+                      <th class="large">Nom de la playlist</th>
+                      <th class="large">Genre musical</th>
+                      <th class="large">Date de creation</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>	
+              </div>
+            </div>
+            <!-- songs -->
+            <div class="pull-right unfolded">
+              <div class="list small songs">
+                <table cellpadding="3px">
+                  <thead>
+                    <tr cellspacing="3px">
+                      <th class="small">Piste</th>
+                      <th class="large">Auteur</th>
+                      <th class="large">Titre</th>
+                      <th class="large">Album</th>
+                      <th class="small">Année</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>	
+                <div class="loader"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BY KINDS MENU VIEW -->
+        <div id="kinds" class="ajax_content hide">
+          <div class="top medium">
+            <h1>GENRE MUSICAL</h1>
+          </div>
+          <ul class="kinds"></ul>
+          <div class="fleur"></div>
+        </div>
+
+        <!-- PLAYLISTS BY SELECTED KIND -->
+        <div id="kind" class="ajax_content hide">
+
+          <div class="top large">
+            <div class="kind_image"></div>
+            <h1> metal francais </h1>
+            <div class="kind_description"></div>
+          </div>
+        
+          <div class="middle">
+            <!-- playlists -->
+            <div class="pull-left">
+              <div class="list small playlists">
+                <table cellpadding="3px">
+                  <thead>
+                    <tr cellspacing="3px">
+                      <th class="small">Vignette</th>
+                      <th class="large">Nom de la playlist</th>
+                      <th class="large">Genre musical</th>
+                      <th class="large">Date de creation</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>	
+              </div>
+            </div>
+            <!-- songs -->
+            <div class="pull-right unfolded">
+              <div class="list small songs">
+                <table cellpadding="3px">
+                  <thead>
+                    <tr cellspacing="3px">
+                      <th class="small">Piste</th>
+                      <th class="large">Auteur</th>
+                      <th class="large">Titre</th>
+                      <th class="large">Album</th>
+                      <th class="small">Année</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>	
+                <div class="loader"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- READERS PLAYLISTS VIEW -->
+        <div id="readers" class="ajax_content hide">
+
+          <div class="top medium">
+            <h1>Playlists des lecteurs</h1>
+          </div>
+        
+          <div class="middle">
+            <!-- playlists -->
+            <div class="pull-left">
+              <div class="list medium playlists">
+                <table cellpadding="3px">
+                  <thead>
+                    <tr cellspacing="3px">
+                      <th class="small">Vignette</th>
+                      <th class="large">Nom de la playlist</th>
+                      <th class="large">Genre musical</th>
+                      <th class="large">Date de creation</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>	
+              </div>
+            </div>
+            <!-- songs -->
+            <div class="pull-right unfolded">
+              <div class="list medium songs">
+                <table cellpadding="3px">
+                  <thead>
+                    <tr cellspacing="3px">
+                      <th class="small">Piste</th>
+                      <th class="large">Auteur</th>
+                      <th class="large">Titre</th>
+                      <th class="large">Album</th>
+                      <th class="small">Année</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>	
+                <div class="loader"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- NEWS VIEW -->
+        <div id="news" class="ajax_content hide">
+
+          <div class="top large">
+          </div>
+
+          <div class="middle">
+            <!-- playlists -->
+            <div class="pull-left">
+              <div class="list small playlists">
+                <table cellpadding="3px">
+                  <thead>
+                    <tr cellspacing="3px">
+                      <th class="small">Vignette</th>
+                      <th class="large">Nom de la playlist</th>
+                      <th class="large">Genre musical</th>
+                      <th class="large">Date de creation</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>	
+              </div>
+            </div>
+            <!-- songs -->
+            <div class="pull-right unfolded">
+              <div class="list small songs">
+                <table cellpadding="3px">
+                  <thead>
+                    <tr cellspacing="3px">
+                      <th class="small">Piste</th>
+                      <th class="large">Auteur</th>
+                      <th class="large">Titre</th>
+                      <th class="large">Album</th>
+                      <th class="small">Année</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>	
+                <div class="loader"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="admin" class="ajax_content hide">
+          <div class="top medium">
+            <h1>administration</h1>
+          </div>
+          <ul>
+            <li><a href='#' onClick='initialize()'>Initialize</a></li>
+            <li><a href='#' onClick='synchronize()'>Synchronize</a></li>
+            <li><a href='#' onClick='transfer()'>Transfer</a></li>
+          </ul>
+        </div>
+
+        <div class="clear"></div>
+
+        <!-- BOTTOM -->
+        <div class="player">
+          <div id="jquery_jplayer_1" class="jp-jplayer"></div>
+            <div id="jp_container_1" class="jp-audio">
+              <div class="jp-type-single">
+                <div class="jp-gui jp-interface">
+                  <ul class="jp-controls">
+                    <li><a href="javascript:;" class="jp-play" tabindex="1">play</a></li>
+                    <li><a href="javascript:;" class="jp-pause" tabindex="1">pause</a></li>
+                    <li><a href="javascript:;" class="jp-stop" tabindex="1">stop</a></li>
+                    <li><a href="javascript:;" class="jp-mute" tabindex="1" title="mute">mute</a></li>
+                    <li><a href="javascript:;" class="jp-unmute" tabindex="1" title="unmute">unmute</a></li>
+                    <li><a href="javascript:;" class="jp-volume-max" tabindex="1" title="max volume">max volume</a></li>
+                  </ul>
+                  <div class="jp-progress">
+                    <div class="jp-seek-bar">
+                      <div class="jp-play-bar"></div>
+                    </div>
+                  </div>
+                  <div class="jp-volume-bar">
+                    <div class="jp-volume-bar-value"></div>
+                  </div>
+                  <div class="jp-time-holder">
+                    <div class="jp-current-time"></div>
+                    <div class="jp-duration"></div>
+                    <ul class="jp-toggles">
+                      <li><a href="javascript:;" class="jp-repeat" tabindex="1" title="repeat">repeat</a></li>
+                      <li><a href="javascript:;" class="jp-repeat-off" tabindex="1" title="repeat off">repeat off</a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="jp-title">
+                  <ul>
+                    <li>Bubble</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/libs/jquery.min.js"></script>
+    <script type="text/javascript" src="js/libs/underscore.min.js"></script>
+    <script type="text/javascript" src="js/libs/jquery.jplayer.min.js"></script>
+    <script type="text/javascript" src="js/libs/contentflow.js"></script>
+    <script type="text/javascript" src="js/libs/archive.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript" src="js/data.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript">
+      app.initialize();
+      //getLastPlaylists();
+      //var my_flow = new ContentFlow('my_flow', { scaleFactor: 0.8, scaleFactorLandscape: 2, scaleFactorPortrait: 2 } ) ;
+      //var news_flow = new ContentFlow('news_flow', { scaleFactor: 0.8, scaleFactorLandscape: 2, scaleFactorPortrait: 2 } ) ;
+    </script>
+  </body>
+</html>
+
+

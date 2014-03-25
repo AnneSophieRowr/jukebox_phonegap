@@ -1,0 +1,208 @@
+body { 
+  background-image: url(../img/common/background.jpg); 
+  background-size : cover;
+  height: 100%;
+  color: white;
+}
+
+@font-face {
+      font-family: 'Magna-BlackCondensed';
+      src: url('../img/common/Magna-BlackCondensed.ttf');
+}
+
+.hide {
+  display: none;
+}
+
+.pull-left {
+  float: left;
+}
+
+.pull-right {
+  float: right;
+}
+
+.clear {
+  clear: both;
+}
+
+/* LEFT COLUMN */
+
+#left_column {
+  float: left;
+  width: 414px;
+  margin-top: 50px;
+  margin-right: 20px;
+}
+
+.jukebox_logo {
+  background-image: url(../img/common/logo_jukebox.png);
+  background-repeat: no-repeat ;
+  background-size: cover;
+  width: 600px;
+  height: 394px;
+  margin-left: -40px;
+}
+
+#left_column ul, #admin ul {
+  margin-left: 30px;
+  margin-top: 30px;
+}
+
+#left_column li, #admin li {
+  background-image: url(../img/common/button.png);
+  background-repeat: no-repeat ;
+  background-size: cover;
+  width: 400px;
+  height: 129px;
+  display: table;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#left_column li:hover, #admin li:hover {
+  background-image: url(../img/common/button_pushed.png);
+}
+
+#left_column a, #admin a {
+  display: table-cell;
+  vertical-align: middle;
+  text-decoration: none;
+  color: white;
+  font-size: 25px;
+  font-family: arial;
+  text-transform: uppercase;
+}
+
+/* RIGHT SIDE */
+
+#right_side {
+  width: 1900px;
+  float: right;
+  margin-top: 50px;
+  margin-right: 20px;
+}
+
+/* TOP PART */
+
+.top.small {
+  height: 180px;
+}
+
+.top.medium {
+  height: 424px;
+  line-height: 424px;
+}
+
+.top.large {
+  height: 382px;
+  margin-bottom: 42px;
+}
+
+.album {
+  /*background-image: url(../img/news/album.png);
+  background-repeat: no-repeat ;
+  background-size: cover;*/
+  width: 1900px;
+  height: 307px;
+}
+
+.search_bar {
+  background-image: url(../img/searchbar/search_bar.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 1900px;
+  height: 140px;
+  line-height: 140px;
+  margin-bottom: 20px;
+}
+
+.search_bar input {
+  border: 1px solid #BFBDBD;
+  color: black;
+  font-size: 35px;
+  width: 92%;
+  height: 60px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 65px;
+  margin-right: 20px;
+}
+
+.magnifier {
+  background-image: url(../img/searchbar/magnifier.png);
+  background-repeat: no-repeat;
+  width: 40px;
+  height: 42px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.comment_bar {
+  background-image: url(../img/playlist/comment.png);
+  width: 940px;
+  height: 140px;
+}
+
+.kind_image {
+  background-image: url(../img/playlist/cover.png);
+  background-repeat: no-repeat ;
+  background-size: cover;
+  width: 416px;
+  height: 382px;
+  float: left;
+  margin-right: 20px;
+}
+
+#kind h1 {
+  text-align: right;
+}
+
+.kind_description {
+  float: right;
+  background-image: url(../img/playlist/comment.png);
+  width: 1420px;
+  height: 102px;
+  margin-top: 30px;
+  float: right;
+  text-align: right;
+  font-size: 30px;
+  padding: 20px;
+}
+
+/* MIDDLE PART (PLAYLISTS + SONGS) */
+
+.playlists.folded {
+  background-image: url(../img/readers/left_list_background.png);
+  vertical-align: middle;
+}
+
+.songs {
+  background-image: url('../img/readers/right_list_background.png');
+  vertical-align: middle;
+  width: 940px;
+  height: 108px;
+}
+
+.unfolded {
+  position: absolute;
+  right: -940px;
+}
+
+/* ADMIN */
+
+#admin ul {
+  margin: 0;
+  min-height: 795px;
+}
+
+/* PLAYER */
+
+.player {
+  /*background-image: url(../img/common/player.png);
+  background-size: cover;*/
+  width: 1900px;
+  height: 94px;
+  margin-top: 37px;
+}
+

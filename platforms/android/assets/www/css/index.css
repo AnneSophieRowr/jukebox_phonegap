@@ -1,0 +1,50 @@
+.logo_bpi {
+  background-image: url(../img/common/logo_bpi.png);
+  background-repeat: no-repeat ;
+  width: 479px;
+  height: 144px;
+  margin: 90px;
+}
+
+.title {
+  background-image: url(../img/index/title.png);
+  position: absolute;
+  width: 836px;
+  height: 756px;
+  top: 50%;
+  left: 50%;
+  margin-top: -378px;
+  margin-left: -418px
+}
+
+ul {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  margin-left: -900px;
+}
+
+li {
+  background-image: url(../img/common/button.png);
+  width: 280px;
+  height: 90px;
+  display: table;
+  float: left;
+  text-align: center;
+  margin-right: 10px;
+}
+
+li:hover {
+  background-image: url(../img/common/button_pushed.png);
+}
+
+a {
+  display: table-cell;
+  vertical-align: middle;
+  text-decoration: none;
+  color: white;
+  font-size: 20px;
+  font-family: arial;
+  text-transform: uppercase;
+}
+

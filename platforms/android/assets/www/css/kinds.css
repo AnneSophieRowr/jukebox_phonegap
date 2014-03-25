@@ -1,0 +1,49 @@
+h1 {
+  font-family: 'Magna-BlackCondensed';
+  font-size: 175px;
+  color: white;
+  letter-spacing: 10px;
+  text-align: center;
+  margin: 0;
+}
+
+ul.kinds {
+  margin: 0;
+  min-height: 468px;
+  margin-left: 75px
+}
+
+ul.kinds li {
+  display: table;
+  float: left;
+  text-align: center;
+  margin-right: 20px;
+  margin-bottom: 40px;
+}
+
+ul.kinds li a {
+  background-image: url(../img/common/button.png);
+  background-size: cover;
+  display: table-cell;
+  vertical-align: middle;
+  text-decoration: none;
+  color: white;
+  font-size: 25px;
+  font-family: arial;
+  text-transform: uppercase;
+  width: 400px;
+  height: 129px;
+}
+
+ul.kinds li a:hover {
+  background-image: url(../img/common/button_pushed.png);
+}
+
+.fleur {
+  background-image: url(../img/kinds/fleur.png);
+  width: 940px;
+  height: 300px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 32px;
+}
