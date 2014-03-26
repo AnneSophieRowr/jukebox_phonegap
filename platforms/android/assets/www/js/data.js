@@ -1,6 +1,19 @@
-function initialize() {
+function toggleSpinner(id) {
+  var $btn = $('#' + id);
+  var $a = $btn.find('a');
+  $btn.toggleClass('loading'); 
+  if ($a.text() != '') {
+    $a.text('');
+  } else {
+    $a.text(id);
+  }
+}
+
+function reset() {
   if (confirm('Etes vous sûr de vouloir réinitialiser la base de données?')) {
+    toggleSpinner('reset');
     db = openDB();
+    now = moment().format('YYYY-MM-DD HH:mm:ss');
     console.log('Initializing database...');
     db.transaction(function(tx) {
       tx.executeSql('DROP TABLE IF EXISTS songs;');
@@ -23,39 +36,85 @@ function initialize() {
       tx.executeSql('CREATE TABLE albums(id, name, image, year, artist_id, created_at, updated_at);');
       tx.executeSql('DROP TABLE IF EXISTS albums_songs;');
       tx.executeSql('CREATE TABLE albums_songs(id, album_id, song_id, position, updated_at);');
+      tx.executeSql('DROP TABLE IF EXISTS parameters;');
+      tx.executeSql('CREATE TABLE parameters(id, name, value, created_at, updated_at);');
+      tx.executeSql("INSERT INTO parameters (name, value) VALUES ('last_synchronization_date', '" + now + "');");
     }, errorCB);
     console.log('Database initialized.');
+    getSqlData('');
+    getFiles('', 'reset');
   }
 }
 
 function synchronize() {
-  //var url = 'http://127.0.0.1:3000/synchronize?date=2014-01-01';
-  var url = 'http://10.1.2.123:8082/synchronize?date=2014-01-01';
-  console.log('Synchronizing SQL data...');
+  toggleSpinner('synchronize');
+  getSynchronizationDate(function(last_sync_date) {
+    console.log('Last sync was: ' + last_sync_date);
+    getSqlData('?date=' + last_sync_date);
+    getFiles(last_sync_date, 'synchronize');
+  }); 
+}
+
+function getSynchronizationDate(callBack) {
+  db = openDB();
+  sql = "SELECT value from parameters where name= 'last_synchronization_date';";
+  db.transaction(function(tx) {
+    tx.executeSql(sql, [], function(tx, result) { callBack(result.rows.item(0).value); }, errorCB);
+  }, errorCB);
+}
+
+function getSqlData(dateParam) {
+  console.log('Retrieving SQL data...');
+  //var url = 'http://127.0.0.1:3000/synchronize' + dateParam;
+  var url = encodeURI('http://10.1.2.123:8082/synchronize' + dateParam);
   $.getJSON(url, function(data) {
     _.each(data.keys, function(key) { 
       removeDuplicates(key, data[key]);
       populate(key, data[key]);
     });
   });
-  console.log('SQL data synchronized.');
+  console.log('SQL data retrieved.');
 }
 
-function transfer() {
-  console.log('Downloading file to: ' + window.appDir);
+function getFiles(date, id) {
+  console.log('Downloading files (images and music)...');
+
+  var url = 'http://10.1.2.123:8082/files';
+  if (date != '') { url += '?date=' + date; } 
+
   var ft = new FileTransfer();
+
   ft.download(
-    'http://10.1.2.123:8082/files?date=2014-01-01',
+    encodeURI(url),
     window.appDirURL + '/files.zip',
     function(file) {
       url = file.toURL();
-      console.log('Download complete: ' + file.fullPath);
-      zip.unzip(url, url.replace('/files.zip', ''), function() {});
+      file.file(function(fileObj) {
+        if (fileObj.size > 1) {
+          zip.unzip(url, url.replace('/files.zip', ''), function() {
+            console.log('Files downloaded and unzipped.');
+          });
+        } else {
+          console.log('No files to download!');
+        }
+        updateLastSyncDate(date);
+        toggleSpinner(id);
+      });
     },
     function(error) {
       console.log('Download failed: ' + error + ' (code: ' + error.code + ')');
+      toggleSpinner(id);
     }
   );
+}
+
+function updateLastSyncDate(date) {
+  if (date == '') { date = moment().format('YYYY-MM-DD HH:mm:ss'); }
+  db = openDB();
+  db.transaction(function(tx) {
+    tx.executeSql("UPDATE parameters SET value = '" + date + "' WHERE name = 'last_synchronization_date';");
+  }, errorCB);
+  console.log('Last sync date updated to ' + date);
 }
 
 function populate(table, rows) {

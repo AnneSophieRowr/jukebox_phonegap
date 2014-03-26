@@ -35,7 +35,23 @@ $(document).ready(function(){
     foldPage();
   });
 
-  $(document).on('click', '.song', function() {});
+  $(document).on('click', '.song', function() {
+    url = 'file:///storage/emulated/0/android/data/com.bpi.jukebox' + $(this).find('.hide').text();
+    console.log(url);
+    $("#jquery_jplayer_1").jPlayer('destroy');
+    $("#jquery_jplayer_1").jPlayer( {
+      ready: function() { 
+        $(this).jPlayer("setMedia", { 
+          mp3: url,
+        }).jPlayer("play"); 
+      },
+      ended: function() { 
+        $(this).jPlayer("play"); 
+      },
+      supplied: "mp3",
+      swfPath: "/flash",
+    });
+  });
 
   $(document).on('click', '.item', function() {
     getPlaylistSongs($(this).find('canvas').attr('id'));
@@ -147,7 +163,7 @@ function getPlaylistSongs(id) {
   current_view.find('.songs tbody').html('');
   current_view.find('.loader').fadeIn();
   db = openDB();
-  sql =   "SELECT p.description AS description, s.id AS id, ps.position AS position, COALESCE(a.name, '-') AS artist, COALESCE(s.name, '-') AS name, COALESCE(al.name, '-') AS album, COALESCE(al.year, '-') AS year ";
+  sql =   "SELECT p.description AS description, s.id AS id, ps.position AS position, COALESCE(a.name, '-') AS artist, COALESCE(s.name, '-') AS name, COALESCE(al.name, '-') AS album, COALESCE(al.year, '-') AS year, s.file AS file ";
   sql +=  "FROM playlists p ";
   sql +=  "JOIN playlists_songs ps ON ps.playlist_id = p.id ";
   sql +=  "JOIN songs s ON ps.song_id = s.id ";
@@ -176,7 +192,8 @@ function renderSongs(tx, songs) {
       list += '<td class="large">' + s.artist + '</td>';
       list += '<td class="large">' + s.name + '</td>';
       list += '<td class="large">' + s.album + '</td>';
-      list += '<td class="small">' + s.year + '</td></tr>';
+      list += '<td class="small">' + s.year + '</td>';
+      list += '<td class="hide">' + s.file.replace('/uploads','') + '</td></tr>';
     }
     current_view.find('.songs tbody').html(list);
   }

@@ -23,7 +23,7 @@
           <li><a href='#kinds' class="nav">playlists genre </br> musical</a></li></br>
           <li><a href='#readers' class="nav">playlists des </br> lecteurs</a></li></br>
           <li><a href='#news' class="nav">actualite </br> musicale</a></li></br>
-          <li><a href='#admin' class="nav">mentions </br> legales</a></li>
+          <li><a href='#legal' class="nav">mentions </br> legales</a></li>
         </ul>
       </div>
           
@@ -32,7 +32,7 @@
 
       
         <!-- SEARCH VIEW-->
-        <div id="search" class="ajax_content hide">
+        <div id="search" class="ajax_content">
 
           <div class="top small">
             <div class="pull-left">
@@ -88,7 +88,7 @@
         </div>
 
         <!-- LAST PLAYLISTS ADDED VIEW -->
-        <div id="last" class="ajax_content">
+        <div id="last" class="ajax_content hide">
           <div class="top large">
             <div class="album ContentFlow" id="my_flow">
               <div class="loadIndicator"><div class="indicator"></div></div>
@@ -291,14 +291,22 @@
           </div>
         </div>
 
+        <div id="legal" class="ajax_content hide">
+          <div class="top medium">
+            <h1>Mentions légales</h1>
+          </div>
+          <div class='mentions'>
+            <a href='#admin' class='nav'>Admin</a>
+          </div>
+        </div>
+
         <div id="admin" class="ajax_content hide">
           <div class="top medium">
             <h1>administration</h1>
           </div>
           <ul>
-            <li><a href='#' onClick='initialize()'>Initialize</a></li>
-            <li><a href='#' onClick='synchronize()'>Synchronize</a></li>
-            <li><a href='#' onClick='transfer()'>Transfer</a></li>
+            <li id="reset"><a href='#' onClick='reset()'>Reset data</a></li>
+            <li id="synchronize"><a href='#' onClick='synchronize()'>Synchronize</a></li>
           </ul>
         </div>
 
@@ -354,7 +362,7 @@
     <script type="text/javascript" src="js/libs/underscore.min.js"></script>
     <script type="text/javascript" src="js/libs/jquery.jplayer.min.js"></script>
     <script type="text/javascript" src="js/libs/contentflow.js"></script>
-    <script type="text/javascript" src="js/libs/archive.js"></script>
+    <script type="text/javascript" src="js/libs/moment.min.js"></script>
     <script type="text/javascript" src="js/common.js"></script>
     <script type="text/javascript" src="js/data.js"></script>
     <script type="text/javascript" src="js/index.js"></script>

@@ -29,14 +29,13 @@
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/js/data.js \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/js/common.js \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/js/index.js \
-/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/js/libs/archive-min.js \
+/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/js/libs/moment.min.js \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/js/libs/underscore.min.js \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/js/libs/contentflow.js \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/js/libs/typeahead.min.js \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/js/libs/Jplayer.swf \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/js/libs/jquery.jplayer.min.js \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/js/libs/jquery.min.js \
-/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/js/libs/archive.js \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/res/icon \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/res/screen \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/res/icon/bada \

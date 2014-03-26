@@ -30,5 +30,4 @@ function gotFS(fileSystem) {
 
 function dirReady(fileSystem) {
   window.appDirURL = fileSystem.toURL();
-  console.log('Got app dir url: ' + window.appDirURL);
 }
