@@ -4,6 +4,7 @@
   background-size: cover;
   width: 1900px;
   overflow-y: scroll;
+  transition: width 2s;
 }
 
 .list.small, .list.small tbody {
@@ -16,6 +17,10 @@
 
 .list.large, .list.large tbody {
   height: 1041px;
+}
+
+.list.playlists.folded {
+  width: 940px;
 }
 
 table {
@@ -41,6 +46,15 @@ tr {
   height: 69px;
   background-repeat: no-repeat;
   display: inline-table
+}
+
+tbody img {
+  width: 100px;
+  height: 100px;
+}
+
+tbody td {
+  height: 120px
 }
 
 tr.dark {

@@ -13,6 +13,7 @@
 /home/annesophie/Projets/mobile/jukebox/platforms/android/ant-build/res/drawable/icon.png \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/cordova.js \
+/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/main.html.old \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/js \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/phonegap.js \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/res \
@@ -22,6 +23,7 @@
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/spec.html \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/plugins \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/main.html \
+/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/< \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/index.html \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/spec \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/cordova_plugins.js \
@@ -34,6 +36,7 @@
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/js/libs/contentflow.js \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/js/libs/typeahead.min.js \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/js/libs/Jplayer.swf \
+/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/js/libs/jplayer.playlist.min.js \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/js/libs/jquery.jplayer.min.js \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/js/libs/jquery.min.js \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/res/icon \
@@ -105,7 +108,6 @@
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/contenflow \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/kinds \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/original \
-/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/news \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/index \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/common \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/list \
@@ -120,11 +122,15 @@
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/covers/2.jpg \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/playlist/cover.png \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/playlist/comment.png \
-/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/jplayer/jplayer.blue.monday.jpg \
-/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/jplayer/jPlayer_blue.monday_extd.psd \
-/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/jplayer/jplayer.blue.monday.seeking.gif \
-/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/jplayer/jplayer.blue.monday.video.play.png \
-/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/jplayer/spirites_blue.monday_2011.psd \
+/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/jplayer/previous.png \
+/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/jplayer/repeat.png \
+/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/jplayer/repeat-off.png \
+/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/jplayer/background.png \
+/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/jplayer/shuffle.png \
+/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/jplayer/shuffle-off.png \
+/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/jplayer/pause.png \
+/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/jplayer/next.png \
+/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/jplayer/play.png \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/readers/right_list_background.png \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/readers/left_list_background.png \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/searchbar/search_bar.png \
@@ -142,7 +148,6 @@
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/original/cnk.png \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/original/player.png \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/original/commentaire.png \
-/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/news/album.png \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/index/reflect.png \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/index/title.png \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/common/logo_bpi.png \

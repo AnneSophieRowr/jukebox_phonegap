@@ -2,6 +2,16 @@ $(document).ready(function(){
 
   current_view = $('.ajax_content:visible');
 
+  $("#jquery_jplayer_1").jPlayer({
+    ready: function () {
+      $(this).jPlayer("setMedia", {
+        mp3: "http://www.jplayer.org/audio/m4a/Miaow-07-Bubble.m4a"
+      });
+    },
+    swfPath: "/js",
+    supplied: "mp3"
+  });
+
   $('.nav').on('click', function() {
     $('.ajax_content').hide();
     var href = $(this).attr('href');
@@ -36,21 +46,25 @@ $(document).ready(function(){
   });
 
   $(document).on('click', '.song', function() {
-    url = 'file:///storage/emulated/0/android/data/com.bpi.jukebox' + $(this).find('.hide').text();
-    console.log(url);
-    $("#jquery_jplayer_1").jPlayer('destroy');
-    $("#jquery_jplayer_1").jPlayer( {
-      ready: function() { 
-        $(this).jPlayer("setMedia", { 
-          mp3: url,
-        }).jPlayer("play"); 
-      },
-      ended: function() { 
-        $(this).jPlayer("play"); 
-      },
-      supplied: "mp3",
-      swfPath: "/flash",
-    });
+    index = $(this).find('.index').text();
+    playlist_id = $(this).find('.playlist_id').text();
+    title = $(this).find('.song_artist').text() + ' - ' + $(this).find('.song_name').text();
+    $('.title').html(title);
+    window[playlist_id].play(index);
+
+    //$("#jquery_jplayer_1").jPlayer('destroy');
+    //$("#jquery_jplayer_1").jPlayer( {
+    //  ready: function() { 
+    //    $(this).jPlayer("setMedia", { 
+    //      mp3: url,
+    //    }).jPlayer("play"); 
+    //  },
+    //  ended: function() { 
+    //    $(this).jPlayer("play"); 
+    //  },
+    //  supplied: "mp3",
+    //  swfPath: "/flash",
+    //});
   });
 
   $(document).on('click', '.item', function() {
@@ -120,7 +134,7 @@ function getLastPlaylists() {
 
 function getKindPlaylists(kind) {
   db = openDB();
-  sql =   "SELECT p.id, p.image, p.name, COALESCE(k.name, '-') as kind_name, COALESCE(k.description, '-') AS description, STRFTIME('%d/%m/%Y', p.created_at) as date ";
+  sql =   "SELECT p.id, p.image, p.name, COALESCE(k.name, '-') as kind_name, k.image AS kind_image, COALESCE(k.description, '-') AS description, STRFTIME('%d/%m/%Y', p.created_at) as date ";
   sql +=  "FROM playlists p ";
   sql +=  "JOIN kinds_playlists kp ON p.id = kp.playlist_id ";
   sql +=  "JOIN kinds k ON k.id = kp.kind_id ";
@@ -138,6 +152,9 @@ function renderKindPlaylists(tx, playlists) {
   current_view = $('.ajax_content:visible');
   $('h1:visible').html(playlists.rows.item(0).kind_name);
   $('.kind_description:visible').html(playlists.rows.item(0).description);
+  //image = 'http://127.0.0.1:3000' + playlists.rows.item(0).kind_image;
+  image = 'file:///storage/emulated/0/android/data/com.bpi.jukebox' + playlists.rows.item(0).kind_image.replace('/uploads','');
+  $('.kind_image:visible').css("background-image", "url(" + image + ")");  
   renderPlaylists(tx, playlists);
 }
 
@@ -150,7 +167,9 @@ function renderPlaylists(tx, playlists) {
     for (i = 0; i < playlists.rows.length; i++) {
       p = playlists.rows.item(i);
       klass = (i%2 == 0) ? "dark" : "light";
-      list += '<tr class="' + klass + ' playlist" id="' + p.id + '"><td class="small">' + p.image  + '</td>';
+      //image = 'http://127.0.0.1:3000' + p.image;
+      image = 'file:///storage/emulated/0/android/data/com.bpi.jukebox' + p.image.replace('/uploads','');
+      list += '<tr class="' + klass + ' playlist" id="' + p.id + '"><td class="small"><img src="' + image  + '"/></td>';
       list += '<td class="large">' + p.name + '</td>';
       list += '<td class="large">' + p.kind_name + '</td>';
       list += '<td class="large">' + p.date + '</td></tr>';
@@ -163,7 +182,7 @@ function getPlaylistSongs(id) {
   current_view.find('.songs tbody').html('');
   current_view.find('.loader').fadeIn();
   db = openDB();
-  sql =   "SELECT p.description AS description, s.id AS id, ps.position AS position, COALESCE(a.name, '-') AS artist, COALESCE(s.name, '-') AS name, COALESCE(al.name, '-') AS album, COALESCE(al.year, '-') AS year, s.file AS file ";
+  sql =   "SELECT p.id AS playlist_id, p.description AS description, s.id AS id, ps.position AS position, COALESCE(a.name, '-') AS artist, COALESCE(s.name, '-') AS name, COALESCE(al.name, '-') AS album, COALESCE(al.year, '-') AS year, s.file AS file ";
   sql +=  "FROM playlists p ";
   sql +=  "JOIN playlists_songs ps ON ps.playlist_id = p.id ";
   sql +=  "JOIN songs s ON ps.song_id = s.id ";
@@ -185,18 +204,30 @@ function renderSongs(tx, songs) {
   } else {
     $('.comment_bar').html(songs.rows.item(0).description);
     list = '';
+    urls = [];
     for (i = 0; i < songs.rows.length; i++) {
       s = songs.rows.item(i);
+      url = 'file:///storage/emulated/0/android/data/com.bpi.jukebox' + s.file.replace('/uploads','');
+      //url = 'http://127.0.0.1:3000' + s.file;
+      urls.push({mp3: url});
       klass = (i%2 == 0) ? "dark" : "light";
       list += '<tr class="' + klass + ' song" id="' + s.id + '"><td class="small">' + s.position  + '</td>';
-      list += '<td class="large">' + s.artist + '</td>';
-      list += '<td class="large">' + s.name + '</td>';
+      list += '<td class="large song_artist">' + s.artist + '</td>';
+      list += '<td class="large song_name">' + s.name + '</td>';
       list += '<td class="large">' + s.album + '</td>';
       list += '<td class="small">' + s.year + '</td>';
-      list += '<td class="hide">' + s.file.replace('/uploads','') + '</td></tr>';
+      list += '<td class="hide index">' + i + '</td>';
+      list += '<td class="hide playlist_id">' + s.playlist_id + '</td></tr>';
     }
     current_view.find('.songs tbody').html(list);
+    loadPlaylist(urls, songs.rows.item(0).playlist_id);
   }
+}
+
+function loadPlaylist(urls, playlist_id) {
+  var cssSelector = { jPlayer: "#jquery_jplayer_1", cssSelectorAncestor: "#jp_container_1" };
+  var options = { swfPath: "/flash", supplied: "mp3", autoPlay: false };
+  window[playlist_id] = new jPlayerPlaylist(cssSelector, urls, options);
 }
 
 function getKinds() {
@@ -230,9 +261,6 @@ function errorCB(tx, err) {
   console.log("Erreur SQL: " + err.code);
   console.log("Erreur SQL: " + err.message);
   console.log("Erreur SQL: " + tx);
-  //alert("Erreur SQL: " + err.code);
-  //alert("Erreur SQL: " + err.message);
-  //alert("Erreur SQL: " + tx);
 }
 
 function openDB() {
@@ -242,15 +270,9 @@ function openDB() {
 
 function foldPage() {
   var current_view = $('.ajax_content:visible') 
-  current_view.find('.search_bar').animate({
-    width: "940px"
-  }, 1500);
-  current_view.find('.search_bar input').animate({
-    width: "83%"
-  }, 1500);
-  current_view.find('.list.playlists').animate({
-    width: "940px"
-  }, 1500);
+  current_view.find('.search_bar').addClass('folded');
+  current_view.find('.search_bar input').addClass('folded');
+  current_view.find('.list.playlists').addClass('folded');
   current_view.find('.unfolded').animate({
     "right": "+=940px"
   }, 1500, function() { $(this).removeClass('unfolded'); });
