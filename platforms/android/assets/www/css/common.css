@@ -101,10 +101,11 @@ body {
   margin-bottom: 42px;
 }
 
+.middle {
+  z-index: 999999;
+}
+
 .album {
-  /*background-image: url(../img/news/album.png);
-  background-repeat: no-repeat ;
-  background-size: cover;*/
   width: 1900px;
   height: 307px;
 }
@@ -117,11 +118,6 @@ body {
   height: 140px;
   line-height: 140px;
   margin-bottom: 20px;
-  transition: width 2s;
-}
-
-.search_bar.folded {
-  width: 940px;
 }
 
 .search_bar input {
@@ -134,11 +130,6 @@ body {
   vertical-align: middle;
   margin-left: 65px;
   margin-right: 20px;
-  transition: width 2s;
-}
-
-.search_bar input.folded {
-  width: 83%;
 }
 
 .magnifier {

@@ -8,7 +8,7 @@
       <link rel="stylesheet" type="text/css" href="css/common.css" />
       <link rel="stylesheet" type="text/css" href="css/kinds.css" />
       <link rel="stylesheet" type="text/css" href="css/libs/jplayer.blue.monday.css" />
-      <link rel="stylesheet" type="text/css" href="css/libs/contentflow.css" />
+      <link rel="stylesheet" type="text/css" href="css/libs/imageflow.css" />
       <title>Jukebox</title>
     </head>
 
@@ -50,7 +50,7 @@
 
             <!-- playlists -->
             <div class="pull-left">
-              <div class="list large playlists" id="last_playlists_flow">
+              <div class="list large playlists">
                 <table cellpadding="3px">
                   <thead>
                     <tr cellspacing="3px">
@@ -90,21 +90,7 @@
         <!-- LAST PLAYLISTS ADDED VIEW -->
         <div id="last" class="ajax_content hide">
           <div class="top large">
-            <div class="album ContentFlow" id="my_flow">
-              <div class="loadIndicator"><div class="indicator"></div></div>
-              <div class="flow">
-                <img class="item" src="img/covers/1.jpg" id="1"/>
-                <img class="item" src="img/covers/2.jpg" id="2"/>
-                <img class="item" src="img/covers/3.jpg" id="1"/>
-                <img class="item" src="img/covers/4.jpg" id="2"/>
-                <img class="item" src="img/covers/5.jpg" id="1"/>
-                <img class="item" src="img/covers/6.jpg" id="2"/>
-                <img class="item" src="img/covers/7.jpg" id="1"/>
-                <img class="item" src="img/covers/8.jpg" id="2"/>
-                <img class="item" src="img/covers/9.png" id="1"/>
-              </div>
-              <div class="globalCaption"></div>
-              <div class="scrollbar"><div class="slider"><div class="position"></div></div></div>
+            <div class="album imageflow" id="last_playlists_flow">
             </div>
           </div>
 
@@ -251,6 +237,8 @@
         <div id="news" class="ajax_content hide">
 
           <div class="top large">
+            <div class="album imageflow" id="news_playlists_flow">
+            </div>
           </div>
 
           <div class="middle">
@@ -354,16 +342,17 @@
     <script type="text/javascript" src="js/libs/underscore.min.js"></script>
     <script type="text/javascript" src="js/libs/jquery.jplayer.min.js"></script>
     <script type="text/javascript" src="js/libs/jplayer.playlist.min.js"></script>
-    <script type="text/javascript" src="js/libs/contentflow.js"></script>
+    <script type="text/javascript" src="js/libs/imageflow.js"></script>
     <script type="text/javascript" src="js/libs/moment.min.js"></script>
     <script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript" src="js/kinds.js"></script>
+    <script type="text/javascript" src="js/player.js"></script>
+    <script type="text/javascript" src="js/flow.js"></script>
     <script type="text/javascript" src="js/data.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript">
       app.initialize();
-      getLastPlaylists();
-      //var my_flow = new ContentFlow('my_flow', { scaleFactor: 0.8, scaleFactorLandscape: 2, scaleFactorPortrait: 2 } ) ;
-      //var news_flow = new ContentFlow('news_flow', { scaleFactor: 0.8, scaleFactorLandscape: 2, scaleFactorPortrait: 2 } ) ;
+      getLastSearchedPlaylists();
     </script>
   </body>
 </html>

@@ -64,9 +64,9 @@ function getSynchronizationDate(callBack) {
 }
 
 function getSqlData(dateParam) {
-  console.log('Retrieving SQL data...');
   //var url = 'http://127.0.0.1:3000/synchronize' + dateParam;
   var url = encodeURI('http://10.1.2.123:8082/synchronize' + dateParam);
+  console.log('Retrieving SQL data from ' + url + '...');
   $.getJSON(url, function(data) {
     _.each(data.keys, function(key) { 
       removeDuplicates(key, data[key]);
@@ -77,10 +77,10 @@ function getSqlData(dateParam) {
 }
 
 function getFiles(date, id) {
-  console.log('Downloading files (images and music)...');
-
   var url = 'http://10.1.2.123:8082/files';
   if (date != '') { url += '?date=' + date; } 
+
+  console.log('Downloading files (images and music) from ' + url + '...');
 
   var ft = new FileTransfer();
 
@@ -93,12 +93,12 @@ function getFiles(date, id) {
         if (fileObj.size > 1) {
           zip.unzip(url, url.replace('/files.zip', ''), function() {
             console.log('Files downloaded and unzipped.');
+            updateLastSyncDate(date);
+            toggleSpinner(id);
           });
         } else {
           console.log('No files to download!');
         }
-        updateLastSyncDate(date);
-        toggleSpinner(id);
       });
     },
     function(error) {
