@@ -1,7 +1,12 @@
 $(document).ready(function(){
 
+  // Setting the current view (nav)
   current_view = $('.ajax_content:visible');
 
+  // Initiate database
+  openDB();
+
+  // Initiate player
   $("#jquery_jplayer_1").jPlayer({
     ready: function () {
       $(this).jPlayer("setMedia", {
@@ -12,6 +17,7 @@ $(document).ready(function(){
     supplied: "mp3"
   });
 
+  // Left menu nav
   $('.nav').on('click', function() {
     $('.ajax_content').hide();
     var href = $(this).attr('href');
@@ -37,17 +43,47 @@ $(document).ready(function(){
         break;
     }
   });
+  
+  // Search autocompletion
+  $(document).on('keyup', '.search_bar input', function() {
+    q = $(this).val();
+    sql =   "SELECT p.id, p.image, p.name, COALESCE(k.name, '-') as kind_name, STRFTIME('%d/%m/%Y', p.created_at) as date ";
+    sql +=  "FROM playlists p ";
+    sql +=  "LEFT JOIN kinds_playlists kp ON p.id = kp.playlist_id ";
+    sql +=  "LEFT JOIN kinds k ON k.id = kp.kind_id ";
+    sql +=  "LEFT JOIN playlists_songs ps ON p.id = ps.playlist_id ";
+    sql +=  "LEFT JOIN songs s ON s.id = ps.song_id ";
+    sql +=  "LEFT JOIN albums_songs als ON s.id = als.song_id ";
+    sql +=  "LEFT JOIN albums al ON al.id = als.album_id ";
+    sql +=  "LEFT JOIN artists a ON a.id = s.artist_id ";
+    sql +=  "WHERE p.name LIKE '%" + q + "%' ";
+    sql +=  "OR kind_name LIKE '%" + q + "%' ";
+    sql +=  "OR s.name LIKE '%" + q + "%' ";
+    sql +=  "OR a.name LIKE '%" + q + "%' ";
+    sql +=  "OR al.name LIKE '%" + q + "%' ";
+    sql +=  "GROUP BY p.id ";
+    sql +=  "ORDER BY p.name DESC ";
+    console.log(sql);
+    window.db.transaction(function(tx) {
+      tx.executeSql(sql, [], renderPlaylists, errorCB);
+    }, errorCB);
+  });
 
+  // Kinds nav
   $(document).on('click', '.kind', function() {
     getKindPlaylists($(this).attr('id'));
   });
 
+  // Selecting playlist, moving image flow and loading playlist songs (only for last playlists and news)
   $(document).on('click', '.playlist', function() {
     getPlaylistSongs($(this).attr('id'));
+    current_view.find('.playlist').removeClass('selected');
+    $(this).addClass('selected');
     moveFlow($(this).attr('position'));
     foldPage();
   });
 
+  // Play song
   $(document).on('click', '.song', function() {
     index = $(this).find('.index').text();
     playlist_id = $(this).find('.playlist_id').text();
@@ -56,31 +92,43 @@ $(document).ready(function(){
     window[playlist_id].play(index);
   });
 
+  // Load playlist songs 
   $(document).on('click', '.item', function() {
     getPlaylistSongs($(this).attr('id'));
     foldPage();
   });
 
+  simulateClick();
+
 });
 
-function getLastSearchedPlaylists() {
-  console.log('getLastSearchedPlaylists');
-  db = openDB();
-  sql =   "SELECT p.id, p.image, p.name, COALESCE(k.name, '-') as kind_name, STRFTIME('%d/%m/%Y', p.created_at) as date ";
-  sql +=  "FROM playlists p ";
-  sql +=  "LEFT JOIN kinds_playlists kp ON p.id = kp.playlist_id ";
-  sql +=  "LEFT JOIN kinds k ON k.id = kp.kind_id ";
-  sql +=  "GROUP BY p.id ";
-  sql +=  "ORDER BY date DESC ";
-  sql +=  "LIMIT 20";
-  db.transaction(function(tx) {
-    tx.executeSql(sql, [], renderPlaylists, errorCB);
-  }, errorCB);
+function simulateClick() {
+  var url = window.location.href;
+  var hash = url.substring(url.indexOf("#"));
+  console.log(hash);
+  $(hash)[0].click();
 }
 
+// Search
+function getLastSearchedPlaylists() {
+  console.log('getLastSearchedPlaylists');
+  if ($('.search_bar input').val() == '') {
+    sql =   "SELECT p.id, p.image, p.name, COALESCE(k.name, '-') as kind_name, STRFTIME('%d/%m/%Y', p.created_at) as date ";
+    sql +=  "FROM playlists p ";
+    sql +=  "LEFT JOIN kinds_playlists kp ON p.id = kp.playlist_id ";
+    sql +=  "LEFT JOIN kinds k ON k.id = kp.kind_id ";
+    sql +=  "GROUP BY p.id ";
+    sql +=  "ORDER BY date DESC ";
+    sql +=  "LIMIT 20";
+    window.db.transaction(function(tx) {
+      tx.executeSql(sql, [], renderPlaylists, errorCB);
+    }, errorCB);
+  }
+}
+
+// Last playlists
 function getLastPlaylists() {
   console.log('getLastPlaylists');
-  db = openDB();
   window.current_flow = 'last_playlists_flow';
   sql =   "SELECT p.id, p.image, p.name, COALESCE(k.name, '-') as kind_name, STRFTIME('%d/%m/%Y', p.created_at) as date ";
   sql +=  "FROM playlists p ";
@@ -89,14 +137,14 @@ function getLastPlaylists() {
   sql +=  "GROUP BY p.id ";
   sql +=  "ORDER BY date DESC ";
   sql +=  "LIMIT 20";
-  db.transaction(function(tx) {
+  window.db.transaction(function(tx) {
     tx.executeSql(sql, [], renderPlaylistsAndFlow, errorCB);
   }, errorCB);
 }
 
+// Readers playlists
 function getReadersPlaylists() {
   console.log('getReadersPlaylists');
-  db = openDB();
   sql =   "SELECT p.id, p.image, p.name, COALESCE(k.name, '-') as kind_name, STRFTIME('%d/%m/%Y', p.created_at) as date ";
   sql +=  "FROM playlists p ";
   sql +=  "LEFT JOIN kinds_playlists kp ON p.id = kp.playlist_id ";
@@ -107,14 +155,14 @@ function getReadersPlaylists() {
   sql +=  "GROUP BY p.id ";
   sql +=  "ORDER BY date DESC ";
   sql +=  "LIMIT 20";
-  db.transaction(function(tx) {
+  window.db.transaction(function(tx) {
     tx.executeSql(sql, [], renderPlaylists, errorCB);
   }, errorCB);
 }
 
+// News playlists
 function getNewsPlaylists() {
   console.log('getNewsPlaylists');
-  db = openDB();
   window.current_flow = 'news_playlists_flow';
   sql =   "SELECT p.id, p.image, p.name, COALESCE(k.name, '-') as kind_name, STRFTIME('%d/%m/%Y', p.created_at) as date ";
   sql +=  "FROM playlists p ";
@@ -126,16 +174,18 @@ function getNewsPlaylists() {
   sql +=  "GROUP BY p.id ";
   sql +=  "ORDER BY date DESC ";
   sql +=  "LIMIT 20";
-  db.transaction(function(tx) {
+  window.db.transaction(function(tx) {
     tx.executeSql(sql, [], renderPlaylistsAndFlow, errorCB);
   }, errorCB);
 }
 
+// Loading playlists and flow (for last and news)
 function renderPlaylistsAndFlow(tx, playlists) {
   console.log('renderPlaylistsAndFlow');
   renderPlaylists(tx, playlists, true);
 }
 
+// Loading playlist in dom
 function renderPlaylists(tx, playlists, flow) {
   console.log('renderPlaylists');
   current_view.find('.playlists tbody').html('');
@@ -162,11 +212,11 @@ function renderPlaylists(tx, playlists, flow) {
   }
 }
 
+// Loading selected playlist songs
 function getPlaylistSongs(id) {
   console.log('getPlaylistSongs');
   current_view.find('.songs tbody').html('');
   current_view.find('.loader').fadeIn();
-  db = openDB();
   sql =   "SELECT p.id AS playlist_id, p.description AS description, s.id AS id, ps.position AS position, COALESCE(a.name, '-') AS artist, COALESCE(s.name, '-') AS name, COALESCE(al.name, '-') AS album, COALESCE(al.year, '-') AS year, s.file AS file ";
   sql +=  "FROM playlists p ";
   sql +=  "JOIN playlists_songs ps ON ps.playlist_id = p.id ";
@@ -176,12 +226,13 @@ function getPlaylistSongs(id) {
   sql +=  "LEFT JOIN artists a ON s.artist_id = a.id ";
   sql +=  "WHERE p.id = " + id + " ";
   sql +=  "ORDER BY position";
-  db.transaction(function(tx) {
+  window.db.transaction(function(tx) {
     tx.executeSql(sql, [], renderSongs, errorCB);
   }, errorCB);
   current_view.find('.loader').fadeOut();
 }
 
+// Render loaded songs in dom
 function renderSongs(tx, songs) {
   console.log('renderSongs');
   current_view.find('.songs tbody').html('');
@@ -210,6 +261,7 @@ function renderSongs(tx, songs) {
   }
 }
 
+// Fold the page in two parts (playlists + songs)
 function foldPage() {
   var current_view = $('.ajax_content:visible') 
   //current_view.find('.search_bar').addClass('folded');

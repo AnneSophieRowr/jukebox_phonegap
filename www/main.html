@@ -18,12 +18,12 @@
       <div id="left_column">
         <div class="jukebox_logo"></div>
         <ul>
-          <li><a href='#search' class="nav">recherche</a></li></br>
-          <li><a href='#last' class="nav">dernieres playlists </br> ajoutees</a></li></br>
-          <li><a href='#kinds' class="nav">playlists genre </br> musical</a></li></br>
-          <li><a href='#readers' class="nav">playlists des </br> lecteurs</a></li></br>
-          <li><a href='#news' class="nav">actualite </br> musicale</a></li></br>
-          <li><a href='#legal' class="nav">mentions </br> legales</a></li>
+          <li><a href='#search' id="search_left" class="nav">recherche</a></li></br>
+          <li><a href='#last' id="last_left" class="nav">dernieres playlists </br> ajoutees</a></li></br>
+          <li><a href='#kinds' id="kinds_left" class="nav">playlists genre </br> musical</a></li></br>
+          <li><a href='#readers' id="readers_left" class="nav">playlists des </br> lecteurs</a></li></br>
+          <li><a href='#news' id="news_left" class="nav">actualite </br> musicale</a></li></br>
+          <li><a href='#legal' id="legal_left" class="nav">mentions </br> legales</a></li>
         </ul>
       </div>
           
@@ -349,10 +349,11 @@
     <script type="text/javascript" src="js/player.js"></script>
     <script type="text/javascript" src="js/flow.js"></script>
     <script type="text/javascript" src="js/data.js"></script>
+    <script type="text/javascript" src="js/search.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript">
       app.initialize();
-      getLastSearchedPlaylists();
+      openDB();
     </script>
   </body>
 </html>

@@ -31,3 +31,7 @@ function gotFS(fileSystem) {
 function dirReady(fileSystem) {
   window.appDirURL = fileSystem.toURL();
 }
+
+function launch(href) {
+  window.location = "main.html" + href;
+}

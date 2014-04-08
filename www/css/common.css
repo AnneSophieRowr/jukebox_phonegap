@@ -1,5 +1,5 @@
 body { 
-  background-image: url(../img/common/background.jpg); 
+  background-image: url(../img/common/background.jpg);  
   background-size : cover;
   height: 100%;
   color: white;
@@ -25,6 +25,11 @@ body {
 
 .clear {
   clear: both;
+}
+
+.selected {
+  color: #D34B4B;
+  font-weight: bold;
 }
 
 /* LEFT COLUMN */

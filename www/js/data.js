@@ -12,14 +12,13 @@ function toggleSpinner(id) {
 function reset() {
   if (confirm('Etes vous sûr de vouloir réinitialiser la base de données?')) {
     toggleSpinner('reset');
-    db = openDB();
     now = moment().format('YYYY-MM-DD HH:mm:ss');
     console.log('Initializing database...');
-    db.transaction(function(tx) {
+    window.db.transaction(function(tx) {
       tx.executeSql('DROP TABLE IF EXISTS songs;');
       tx.executeSql('CREATE TABLE songs(id, name, image, file, duration, user_id, created_at, updated_at, artist_id);');
       tx.executeSql('DROP TABLE IF EXISTS playlists;');
-      tx.executeSql('CREATE TABLE playlists(id, name, image, user_id, created_at, updated_at, description);');
+      tx.executeSql('CREATE TABLE playlists(id, name, image, user_id, created_at, updated_at, description, published);');
       tx.executeSql('DROP TABLE IF EXISTS playlists_songs;');
       tx.executeSql('CREATE TABLE playlists_songs(id, playlist_id, song_id, position, updated_at);');
       tx.executeSql('DROP TABLE IF EXISTS kinds;');
@@ -56,16 +55,15 @@ function synchronize() {
 }
 
 function getSynchronizationDate(callBack) {
-  db = openDB();
   sql = "SELECT value from parameters where name= 'last_synchronization_date';";
-  db.transaction(function(tx) {
+  window.db.transaction(function(tx) {
     tx.executeSql(sql, [], function(tx, result) { callBack(result.rows.item(0).value); }, errorCB);
   }, errorCB);
 }
 
 function getSqlData(dateParam) {
-  //var url = 'http://127.0.0.1:3000/synchronize' + dateParam;
   var url = encodeURI('http://10.1.2.123:8082/synchronize' + dateParam);
+  //var url = 'http://127.0.0.1:3000/synchronize' + dateParam;
   console.log('Retrieving SQL data from ' + url + '...');
   $.getJSON(url, function(data) {
     _.each(data.keys, function(key) { 
@@ -110,16 +108,14 @@ function getFiles(date, id) {
 
 function updateLastSyncDate(date) {
   if (date == '') { date = moment().format('YYYY-MM-DD HH:mm:ss'); }
-  db = openDB();
-  db.transaction(function(tx) {
+  window.db.transaction(function(tx) {
     tx.executeSql("UPDATE parameters SET value = '" + date + "' WHERE name = 'last_synchronization_date';");
   }, errorCB);
   console.log('Last sync date updated to ' + date);
 }
 
 function populate(table, rows) {
-  db = openDB();
-  db.transaction(function(tx) {
+  window.db.transaction(function(tx) {
     _.each(rows, function(row) {
       insert_sql = 'INSERT INTO ' + table + ' values (';
       insert_sql += normalizeSql(row);
@@ -131,9 +127,8 @@ function populate(table, rows) {
 
 function removeDuplicates(table, data) {
   ids = _.pluck(data, "id").join(', ');
-  db = openDB();
   delete_sql = 'DELETE FROM ' + table + ' WHERE id IN (' + ids + ');';
-  db.transaction(function(tx) { tx.executeSql(delete_sql); }, errorCB); 
+  window.db.transaction(function(tx) { tx.executeSql(delete_sql); }, errorCB); 
 }
 
 function normalizeSql(attributes, last_attribute) {
@@ -154,6 +149,6 @@ function errorCB(tx, err) {
 }
 
 function openDB() {
-  return window.openDatabase("Jukebox", "1.0", "Jukebox", 200000)
+  window.db = openDatabase("Jukebox", "1.0", "Jukebox", 200000)
 }
 

@@ -32,6 +32,8 @@
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/js/kinds.js \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/js/common.js \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/js/index.js \
+/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/js/$ \
+/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/js/search.js \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/js/libs/moment.min.js \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/js/libs/underscore.min.js \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/js/libs/typeahead.min.js \
@@ -128,7 +130,6 @@
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/jplayer/repeat-off.png \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/jplayer/background.png \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/jplayer/shuffle.png \
-/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/jplayer/shuffle-off.png \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/jplayer/pause.png \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/jplayer/next.png \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/jplayer/play.png \
@@ -166,7 +167,9 @@
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/common/Magna Typeface/Magna-BlackCondensed.ttf \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/common/Magna Typeface/Magna-BlackCondensed.otf \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/list/list_background.png \
+/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/list/dark_rectangle (copie).png \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/list/light_rectangle.png \
+/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/list/light_rectangle (copie).png \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/list/red_rectangle.png \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/list/dark_rectangle.png \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/css/playlist.css \

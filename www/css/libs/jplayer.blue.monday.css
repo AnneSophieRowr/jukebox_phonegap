@@ -113,7 +113,8 @@ div.jp-interface ul.jp-controls {
 
 div.jp-audio ul.jp-controls {
 	width: 380px;
-	padding: 35px 20px 0 20px;
+        padding-top: 33px;
+        padding-left: 20px;
 }
 
 div.jp-audio-stream ul.jp-controls {
@@ -146,9 +147,10 @@ a.jp-play, a.jp-pause, a.jp-previous, a.jp-next {
   background-size: cover;
 }
 
-a.jp-play, a.jp-pause {
-  width:80px;
-  height:80px;
+a.jp-play, a.jp-pause, a.jp-next, a.jp-previous {
+  width: 85px;
+  height: 85px;
+  margin-right: 10px;
 }
 a.jp-play {
   background-image: url("../../img/jplayer/play.png");
@@ -156,16 +158,9 @@ a.jp-play {
 a.jp-pause {
   background-image: url("../../img/jplayer/pause.png");
 }
-
-a.jp-previous, a.jp-next {
-  width: 60px;
-  height: 60px;
-  margin: 10px 15px 0 15px;
-}
 a.jp-previous {
   background-image: url("../../img/jplayer/previous.png");
 }
-
 a.jp-next {
   background-image: url("../../img/jplayer/next.png");
 }
@@ -176,7 +171,7 @@ a.jp-next {
 
 div.jp-audio div.jp-progress {
 	position: absolute;
-	top:65px;
+	top: 54px;
 	height:15px;
 }
 div.jp-audio div.jp-type-single div.jp-progress {
@@ -184,8 +179,8 @@ div.jp-audio div.jp-type-single div.jp-progress {
 	width:75%;
 }
 div.jp-audio div.jp-type-playlist div.jp-progress {
-	left: 295px;
-	width: 73%;
+	left: 327px;
+	width: 69%;
         z-index: 9999;
 }
 div.jp-video div.jp-progress {
@@ -303,8 +298,8 @@ div.jp-video div.jp-duration {
 
 div.title {
   position: absolute;
-  top: 10px;
-  left: 295px;
+  top: 3px;
+  left: 325px;
   font-size: 30px;
 }
 
@@ -440,11 +435,11 @@ div.jp-audio .jp-type-single ul.jp-toggles {
 	width:25px;
 }
 div.jp-audio .jp-type-playlist ul.jp-toggles {
-	width:170px;
+	width: 260px;
 	margin: 0;
 	position: absolute;
-	right: 35px;
-	top: 35px;
+	right: 30px;
+	top: 30px;
 }
 
 div.jp-video ul.jp-toggles {
@@ -459,8 +454,8 @@ ul.jp-toggles li {
 
 ul.jp-toggles li a {
   display: block;
-  width: 60px;
-  height: 60px;
+  width: 85px;
+  height: 85px;
   text-indent: -9999px;
   line-height: 100%; /* need this for IE6 */
   margin-left: 15px;
@@ -473,15 +468,12 @@ a.jp-repeat, a.jp-repeat-off, a.jp-shuffle, a.jp-shuffle-off {
 a.jp-repeat {
   background-image: url("../../img/jplayer/repeat.png");
 }
-
 a.jp-repeat-off {
   background-image: url("../../img/jplayer/repeat-off.png");
 }
-
 a.jp-shuffle {
   background-image: url("../../img/jplayer/shuffle.png");
 }
-
 a.jp-shuffle-off {
   background-image: url("../../img/jplayer/shuffle-off.png");
 }

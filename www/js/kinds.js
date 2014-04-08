@@ -1,5 +1,4 @@
 function getKinds() {
-  db = openDB();
   sql =   "SELECT DISTINCT(k.id), k.name ";
   sql +=  "FROM kinds k ";
   sql +=  "JOIN kinds_playlists kp ON k.id = kp.kind_id ";
@@ -7,6 +6,7 @@ function getKinds() {
   sql +=  "WHERE visible = 'true' ";
   sql +=  "ORDER BY k.name ";
   sql +=  "LIMIT 12;";
+  console.log(sql);
   db.transaction(function(tx) {
     tx.executeSql(sql, [], renderKinds, errorCB);
   }, errorCB);
@@ -26,7 +26,6 @@ function renderKinds(tx, kinds) {
 }
 
 function getKindPlaylists(kind) {
-  db = openDB();
   sql =   "SELECT p.id, p.image, p.name, COALESCE(k.name, '-') as kind_name, k.image AS kind_image, COALESCE(k.description, '-') AS description, STRFTIME('%d/%m/%Y', p.created_at) as date ";
   sql +=  "FROM playlists p ";
   sql +=  "JOIN kinds_playlists kp ON p.id = kp.playlist_id ";
