@@ -77,8 +77,6 @@ $(document).ready(function(){
   // Selecting playlist, moving image flow and loading playlist songs (only for last playlists and news)
   $(document).on('click', '.playlist', function() {
     getPlaylistSongs($(this).attr('id'));
-    current_view.find('.playlist').removeClass('selected');
-    $(this).addClass('selected');
     moveFlow($(this).attr('position'));
     foldPage();
   });

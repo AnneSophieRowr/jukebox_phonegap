@@ -185,6 +185,12 @@ body {
 
 /* MIDDLE PART (PLAYLISTS + SONGS) */
 
+.mentions {
+  height: 770px;
+  font-size: 30px;
+  text-align: justify;
+}
+
 .playlists.folded {
   background-image: url(../img/readers/left_list_background.png);
   vertical-align: middle;

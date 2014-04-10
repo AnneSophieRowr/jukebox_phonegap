@@ -131,13 +131,13 @@ function removeDuplicates(table, data) {
   window.db.transaction(function(tx) { tx.executeSql(delete_sql); }, errorCB); 
 }
 
-function normalizeSql(attributes, last_attribute) {
+function normalizeSql(attributes) {
   values = '';
   _.each(attributes, function(attribute, idx) {
     if (attribute == null) { values += 'NULL'; }
     else if (typeof(attribute) == 'object') { values += "'" + attribute.url + "'"; }
     else if (attribute == parseInt(attribute)) { values += attribute; }
-    else { values += "'" + attribute + "'"; }
+    else { values += "'" + attribute.toString().replace("'", "''") + "'"; }
     values += ', '; 
   });
   return values.substring(0, values.length - 2);

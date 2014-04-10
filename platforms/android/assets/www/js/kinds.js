@@ -6,6 +6,7 @@ function getKinds() {
   sql +=  "WHERE visible = 'true' ";
   sql +=  "ORDER BY k.name ";
   sql +=  "LIMIT 12;";
+  console.log(sql);
   db.transaction(function(tx) {
     tx.executeSql(sql, [], renderKinds, errorCB);
   }, errorCB);

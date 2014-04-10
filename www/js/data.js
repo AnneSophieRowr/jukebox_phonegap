@@ -62,8 +62,7 @@ function getSynchronizationDate(callBack) {
 }
 
 function getSqlData(dateParam) {
-  var url = encodeURI('http://10.1.2.123:8082/synchronize' + dateParam);
-  //var url = 'http://127.0.0.1:3000/synchronize' + dateParam;
+  var url = current_server + dateParam;
   console.log('Retrieving SQL data from ' + url + '...');
   $.getJSON(url, function(data) {
     _.each(data.keys, function(key) { 
@@ -131,13 +130,13 @@ function removeDuplicates(table, data) {
   window.db.transaction(function(tx) { tx.executeSql(delete_sql); }, errorCB); 
 }
 
-function normalizeSql(attributes, last_attribute) {
+function normalizeSql(attributes) {
   values = '';
   _.each(attributes, function(attribute, idx) {
     if (attribute == null) { values += 'NULL'; }
     else if (typeof(attribute) == 'object') { values += "'" + attribute.url + "'"; }
     else if (attribute == parseInt(attribute)) { values += attribute; }
-    else { values += "'" + attribute + "'"; }
+    else { values += "'" + attribute.toString().replace("'", "''") + "'"; }
     values += ', '; 
   });
   return values.substring(0, values.length - 2);

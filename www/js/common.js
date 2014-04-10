@@ -3,6 +3,14 @@ $(document).ready(function(){
   // Setting the current view (nav)
   current_view = $('.ajax_content:visible');
 
+  // Working on browser or device
+  //current_url = 'file:///storage/emulated/0/android/data/com.bpi.jukebox';
+  current_url = 'http://127.0.0.1:3000/uploads';
+
+  // Working with local/test/prod
+  //current_server = 'http://10.1.2.123:8082/synchronize';
+  current_server = 'http://127.0.0.1:3000/synchronize';
+
   // Initiate database
   openDB();
 
@@ -63,10 +71,21 @@ $(document).ready(function(){
     sql +=  "OR al.name LIKE '%" + q + "%' ";
     sql +=  "GROUP BY p.id ";
     sql +=  "ORDER BY p.name DESC ";
-    console.log(sql);
     window.db.transaction(function(tx) {
       tx.executeSql(sql, [], renderPlaylists, errorCB);
     }, errorCB);
+  });
+
+  // Accessing admin
+  $(document).on('dblclick', '.admin_link', function() {
+    var password = prompt("Entrez le mot de passe administrateur", "");
+    if (password == 'password') {
+      $('.ajax_content').hide();
+      $('#admin').show();
+      current_view = $('.ajax_content:visible');
+    } else {
+      password;
+    }
   });
 
   // Kinds nav
@@ -76,15 +95,18 @@ $(document).ready(function(){
 
   // Selecting playlist, moving image flow and loading playlist songs (only for last playlists and news)
   $(document).on('click', '.playlist', function() {
-    getPlaylistSongs($(this).attr('id'));
-    current_view.find('.playlist').removeClass('selected');
+    console.log($(this).siblings());
+    $(this).siblings().removeClass('selected');
     $(this).addClass('selected');
+    getPlaylistSongs($(this).attr('id'));
     moveFlow($(this).attr('position'));
     foldPage();
   });
 
   // Play song
   $(document).on('click', '.song', function() {
+    $(this).siblings().removeClass('selected');
+    $(this).addClass('selected');
     index = $(this).find('.index').text();
     playlist_id = $(this).find('.playlist_id').text();
     title = $(this).find('.song_artist').text() + ' - ' + $(this).find('.song_name').text();
@@ -105,14 +127,14 @@ $(document).ready(function(){
 function simulateClick() {
   var url = window.location.href;
   var hash = url.substring(url.indexOf("#"));
-  console.log(hash);
   $(hash)[0].click();
 }
 
 // Search
 function getLastSearchedPlaylists() {
   console.log('getLastSearchedPlaylists');
-  if ($('.search_bar input').val() == '') {
+  // Checking if page has already been loaded
+  if (current_view.find('.playlists tbody').html() == '') {
     sql =   "SELECT p.id, p.image, p.name, COALESCE(k.name, '-') as kind_name, STRFTIME('%d/%m/%Y', p.created_at) as date ";
     sql +=  "FROM playlists p ";
     sql +=  "LEFT JOIN kinds_playlists kp ON p.id = kp.playlist_id ";
@@ -130,53 +152,59 @@ function getLastSearchedPlaylists() {
 function getLastPlaylists() {
   console.log('getLastPlaylists');
   window.current_flow = 'last_playlists_flow';
-  sql =   "SELECT p.id, p.image, p.name, COALESCE(k.name, '-') as kind_name, STRFTIME('%d/%m/%Y', p.created_at) as date ";
-  sql +=  "FROM playlists p ";
-  sql +=  "LEFT JOIN kinds_playlists kp ON p.id = kp.playlist_id ";
-  sql +=  "LEFT JOIN kinds k ON k.id = kp.kind_id ";
-  sql +=  "GROUP BY p.id ";
-  sql +=  "ORDER BY date DESC ";
-  sql +=  "LIMIT 20";
-  window.db.transaction(function(tx) {
-    tx.executeSql(sql, [], renderPlaylistsAndFlow, errorCB);
-  }, errorCB);
+  if (current_view.find('.playlists tbody').html() == '') {
+    sql =   "SELECT p.id, p.image, p.name, COALESCE(k.name, '-') as kind_name, STRFTIME('%d/%m/%Y', p.created_at) as date ";
+    sql +=  "FROM playlists p ";
+    sql +=  "LEFT JOIN kinds_playlists kp ON p.id = kp.playlist_id ";
+    sql +=  "LEFT JOIN kinds k ON k.id = kp.kind_id ";
+    sql +=  "GROUP BY p.id ";
+    sql +=  "ORDER BY date DESC ";
+    sql +=  "LIMIT 20";
+    window.db.transaction(function(tx) {
+      tx.executeSql(sql, [], renderPlaylistsAndFlow, errorCB);
+    }, errorCB);
+  }
 }
 
 // Readers playlists
 function getReadersPlaylists() {
   console.log('getReadersPlaylists');
-  sql =   "SELECT p.id, p.image, p.name, COALESCE(k.name, '-') as kind_name, STRFTIME('%d/%m/%Y', p.created_at) as date ";
-  sql +=  "FROM playlists p ";
-  sql +=  "LEFT JOIN kinds_playlists kp ON p.id = kp.playlist_id ";
-  sql +=  "LEFT JOIN kinds k ON k.id = kp.kind_id ";
-  sql +=  "JOIN playlists_types pt ON p.id = pt.playlist_id ";
-  sql +=  "JOIN types t ON t.id = pt.type_id ";
-  sql +=  "WHERE t.id = 1 ";
-  sql +=  "GROUP BY p.id ";
-  sql +=  "ORDER BY date DESC ";
-  sql +=  "LIMIT 20";
-  window.db.transaction(function(tx) {
-    tx.executeSql(sql, [], renderPlaylists, errorCB);
-  }, errorCB);
+  if (current_view.find('.playlists tbody').html() == '') {
+    sql =   "SELECT p.id, p.image, p.name, COALESCE(k.name, '-') as kind_name, STRFTIME('%d/%m/%Y', p.created_at) as date ";
+    sql +=  "FROM playlists p ";
+    sql +=  "LEFT JOIN kinds_playlists kp ON p.id = kp.playlist_id ";
+    sql +=  "LEFT JOIN kinds k ON k.id = kp.kind_id ";
+    sql +=  "JOIN playlists_types pt ON p.id = pt.playlist_id ";
+    sql +=  "JOIN types t ON t.id = pt.type_id ";
+    sql +=  "WHERE t.id = 1 ";
+    sql +=  "GROUP BY p.id ";
+    sql +=  "ORDER BY date DESC ";
+    sql +=  "LIMIT 20";
+    window.db.transaction(function(tx) {
+      tx.executeSql(sql, [], renderPlaylists, errorCB);
+    }, errorCB);
+  }
 }
 
 // News playlists
 function getNewsPlaylists() {
   console.log('getNewsPlaylists');
   window.current_flow = 'news_playlists_flow';
-  sql =   "SELECT p.id, p.image, p.name, COALESCE(k.name, '-') as kind_name, STRFTIME('%d/%m/%Y', p.created_at) as date ";
-  sql +=  "FROM playlists p ";
-  sql +=  "LEFT JOIN kinds_playlists kp ON p.id = kp.playlist_id ";
-  sql +=  "LEFT JOIN kinds k ON k.id = kp.kind_id ";
-  sql +=  "JOIN playlists_types pt ON p.id = pt.playlist_id ";
-  sql +=  "JOIN types t ON t.id = pt.type_id ";
-  sql +=  "WHERE t.id = 2 ";
-  sql +=  "GROUP BY p.id ";
-  sql +=  "ORDER BY date DESC ";
-  sql +=  "LIMIT 20";
-  window.db.transaction(function(tx) {
-    tx.executeSql(sql, [], renderPlaylistsAndFlow, errorCB);
-  }, errorCB);
+  if (current_view.find('.playlists tbody').html() == '') {
+    sql =   "SELECT p.id, p.image, p.name, COALESCE(k.name, '-') as kind_name, STRFTIME('%d/%m/%Y', p.created_at) as date ";
+    sql +=  "FROM playlists p ";
+    sql +=  "LEFT JOIN kinds_playlists kp ON p.id = kp.playlist_id ";
+    sql +=  "LEFT JOIN kinds k ON k.id = kp.kind_id ";
+    sql +=  "JOIN playlists_types pt ON p.id = pt.playlist_id ";
+    sql +=  "JOIN types t ON t.id = pt.type_id ";
+    sql +=  "WHERE t.id = 2 ";
+    sql +=  "GROUP BY p.id ";
+    sql +=  "ORDER BY date DESC ";
+    sql +=  "LIMIT 20";
+    window.db.transaction(function(tx) {
+      tx.executeSql(sql, [], renderPlaylistsAndFlow, errorCB);
+    }, errorCB);
+  }
 }
 
 // Loading playlists and flow (for last and news)
@@ -197,11 +225,12 @@ function renderPlaylists(tx, playlists, flow) {
       p = playlists.rows.item(i);
       klass = (i%2 == 0) ? "dark" : "light";
       if (p.image.indexOf("default") != -1) {
-        image = 'file:///storage/emulated/0/android/data/com.bpi.jukebox/default.jpg';
+        //image = 'file:///storage/emulated/0/android/data/com.bpi.jukebox/default.jpg';
+        image = current_url + '/default.jpg';
       } else {
-        image = 'file:///storage/emulated/0/android/data/com.bpi.jukebox' + p.image.replace('/uploads','');
+        //image = 'file:///storage/emulated/0/android/data/com.bpi.jukebox' + p.image.replace('/uploads','');
+        image = current_url + p.image.replace('/uploads','');
       }
-      //image = 'http://127.0.0.1:3000' + p.image;
       list += '<tr class="' + klass + ' playlist" id="' + p.id + '" position="' + i + '"><td class="small"><img src="' + image  + '"/></td>';
       list += '<td class="large">' + p.name + '</td>';
       list += '<td class="large">' + p.kind_name + '</td>';
@@ -244,8 +273,9 @@ function renderSongs(tx, songs) {
     urls = [];
     for (i = 0; i < songs.rows.length; i++) {
       s = songs.rows.item(i);
-      url = 'file:///storage/emulated/0/android/data/com.bpi.jukebox' + s.file.replace('/uploads','');
+      //url = 'file:///storage/emulated/0/android/data/com.bpi.jukebox' + s.file.replace('/uploads','');
       //url = 'http://127.0.0.1:3000' + s.file;
+      url = current_url + s.file.replace('/uploads','');
       urls.push({mp3: url});
       klass = (i%2 == 0) ? "dark" : "light";
       list += '<tr class="' + klass + ' song" id="' + s.id + '"><td class="small">' + s.position  + '</td>';

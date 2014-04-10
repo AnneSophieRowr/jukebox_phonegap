@@ -4,11 +4,10 @@ function renderFlow(playlists) {
     for (i = 0; i < playlists.rows.length; i++) {
       p = playlists.rows.item(i);
       if (p.image.indexOf("default") != -1) {
-        image = 'file:///storage/emulated/0/android/data/com.bpi.jukebox/default.jpg';
+        image = current_url + '/default.jpg';
       } else {
-        image = 'file:///storage/emulated/0/android/data/com.bpi.jukebox' + p.image.replace('/uploads','');
+        image = current_url + p.image.replace('/uploads','');
       }
-      //image = 'http://127.0.0.1:3000' + p.image;
       flow += '<img class="item" src="' + image + '" id="'+ i + '"/>';
     }
     current_view.find('.imageflow').html(flow);
