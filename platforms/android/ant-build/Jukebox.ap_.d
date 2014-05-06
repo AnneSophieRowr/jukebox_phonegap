@@ -32,12 +32,15 @@
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/js/kinds.js \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/js/common.js \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/js/index.js \
-/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/js/< \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/js/search.js \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/js/libs/moment.min.js \
+/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/js/libs/ContentFlowAddOn_MyAddOn.js \
+/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/js/libs/jquery.jplayer.js \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/js/libs/underscore.min.js \
-/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/js/libs/typeahead.min.js \
+/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/js/libs/jplayer.playlist.js \
+/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/js/libs/contentflow.js \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/js/libs/Jplayer.swf \
+/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/js/libs/jquery.js \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/js/libs/jplayer.playlist.min.js \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/js/libs/imageflow.js \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/js/libs/jquery.jplayer.min.js \
@@ -103,17 +106,22 @@
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/res/screen/ios/screen-ipad-landscape-2x.png \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/res/screen/ios/screen-ipad-portrait.png \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/res/screen/ios/screen-iphone-portrait-568h-2x.png \
+/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/contentflow \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/covers \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/playlist \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/jplayer \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/readers \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/searchbar \
-/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/contenflow \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/kinds \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/original \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/index \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/common \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/list \
+/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/contentflow/scrollbar_white.png \
+/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/contentflow/1x1_0.5_black.png \
+/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/contentflow/blank.gif \
+/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/contentflow/slider_white.png \
+/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/contentflow/loader.gif \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/covers/9.png \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/covers/6.jpg \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/covers/8.jpg \
@@ -130,6 +138,7 @@
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/jplayer/repeat-off.png \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/jplayer/background.png \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/jplayer/shuffle.png \
+/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/jplayer/shuffle-off.png \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/jplayer/pause.png \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/jplayer/next.png \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/jplayer/play.png \
@@ -137,11 +146,6 @@
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/readers/left_list_background.png \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/searchbar/search_bar.png \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/searchbar/magnifier.png \
-/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/contenflow/scrollbar_white.png \
-/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/contenflow/1x1_0.5_black.png \
-/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/contenflow/blank.gif \
-/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/contenflow/slider_white.png \
-/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/contenflow/loader.gif \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/kinds/button_pushed.png \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/kinds/button.png \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/kinds/fleur.png \
@@ -161,6 +165,7 @@
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/common/Magna Typeface \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/common/background.jpg \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/common/loader.gif \
+/home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/common/lock.png \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/common/Magna Typeface/MAGNA_-_Preview_3.jpg \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/common/Magna Typeface/MAGNA_-_Preview_1.jpg \
 /home/annesophie/Projets/mobile/jukebox/platforms/android/assets/www/img/common/Magna Typeface/MAGNA_-_Preview_2.jpg \

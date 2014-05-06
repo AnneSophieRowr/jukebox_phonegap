@@ -142,7 +142,7 @@ function normalizeSql(attributes) {
   return values.substring(0, values.length - 2);
 }
 
-function errorCB(tx, err) {
+function errorCB(err, tx) {
   console.log(tx);
   console.log(err);
 }

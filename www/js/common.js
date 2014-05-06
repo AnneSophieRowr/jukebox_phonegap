@@ -4,12 +4,15 @@ $(document).ready(function(){
   current_view = $('.ajax_content:visible');
 
   // Working on browser or device
-  //current_url = 'file:///storage/emulated/0/android/data/com.bpi.jukebox';
-  current_url = 'http://127.0.0.1:3000/uploads';
+  current_url = 'file:///storage/emulated/0/android/data/com.bpi.jukebox';
+  //current_url = 'http://127.0.0.1:3000/uploads';
 
   // Working with local/test/prod
-  //current_server = 'http://10.1.2.123:8082/synchronize';
-  current_server = 'http://127.0.0.1:3000/synchronize';
+  current_server = 'http://10.1.2.123:8082/synchronize';
+  //current_server = 'http://127.0.0.1:3000/synchronize';
+
+  lastFlow = new ContentFlow('lastFlow');
+  newsFlow = new ContentFlow('newsFlow');
 
   // Initiate database
   openDB();
@@ -77,7 +80,7 @@ $(document).ready(function(){
   });
 
   // Accessing admin
-  $(document).on('dblclick', '.admin_link', function() {
+  $(document).on('click', '.lock', function() {
     var password = prompt("Entrez le mot de passe administrateur", "");
     if (password == 'password') {
       $('.ajax_content').hide();
@@ -95,11 +98,10 @@ $(document).ready(function(){
 
   // Selecting playlist, moving image flow and loading playlist songs (only for last playlists and news)
   $(document).on('click', '.playlist', function() {
-    console.log($(this).siblings());
     $(this).siblings().removeClass('selected');
     $(this).addClass('selected');
     getPlaylistSongs($(this).attr('id'));
-    moveFlow($(this).attr('position'));
+    moveFlow($(this).attr('id'));
     foldPage();
   });
 
@@ -114,11 +116,15 @@ $(document).ready(function(){
     window[playlist_id].play(index);
   });
 
-  // Load playlist songs 
-  $(document).on('click', '.item', function() {
-    getPlaylistSongs($(this).attr('id'));
-    foldPage();
-  });
+  // Load playlist songs on image flow click 
+  //$(document).on('click', '.item', function() {
+  //  id = Number(parseInt($(this).attr('id').replace('playlist_', '')) + 1);
+  //  row = current_view.find('#' + id);
+  //  row.siblings().removeClass('selected');
+  //  row.addClass('selected');
+  //  getPlaylistSongs(id);
+  //  foldPage();
+  //});
 
   simulateClick();
 
@@ -151,7 +157,7 @@ function getLastSearchedPlaylists() {
 // Last playlists
 function getLastPlaylists() {
   console.log('getLastPlaylists');
-  window.current_flow = 'last_playlists_flow';
+  window.currentFlow = lastFlow;
   if (current_view.find('.playlists tbody').html() == '') {
     sql =   "SELECT p.id, p.image, p.name, COALESCE(k.name, '-') as kind_name, STRFTIME('%d/%m/%Y', p.created_at) as date ";
     sql +=  "FROM playlists p ";
@@ -189,7 +195,7 @@ function getReadersPlaylists() {
 // News playlists
 function getNewsPlaylists() {
   console.log('getNewsPlaylists');
-  window.current_flow = 'news_playlists_flow';
+  window.currentFlow = newsFlow;
   if (current_view.find('.playlists tbody').html() == '') {
     sql =   "SELECT p.id, p.image, p.name, COALESCE(k.name, '-') as kind_name, STRFTIME('%d/%m/%Y', p.created_at) as date ";
     sql +=  "FROM playlists p ";
@@ -225,13 +231,11 @@ function renderPlaylists(tx, playlists, flow) {
       p = playlists.rows.item(i);
       klass = (i%2 == 0) ? "dark" : "light";
       if (p.image.indexOf("default") != -1) {
-        //image = 'file:///storage/emulated/0/android/data/com.bpi.jukebox/default.jpg';
         image = current_url + '/default.jpg';
       } else {
-        //image = 'file:///storage/emulated/0/android/data/com.bpi.jukebox' + p.image.replace('/uploads','');
         image = current_url + p.image.replace('/uploads','');
       }
-      list += '<tr class="' + klass + ' playlist" id="' + p.id + '" position="' + i + '"><td class="small"><img src="' + image  + '"/></td>';
+      list += '<tr class="' + klass + ' playlist" id="' + p.id + '"><td class="small"><img src="' + image  + '"/></td>';
       list += '<td class="large">' + p.name + '</td>';
       list += '<td class="large">' + p.kind_name + '</td>';
       list += '<td class="large">' + p.date + '</td></tr>';
@@ -273,12 +277,10 @@ function renderSongs(tx, songs) {
     urls = [];
     for (i = 0; i < songs.rows.length; i++) {
       s = songs.rows.item(i);
-      //url = 'file:///storage/emulated/0/android/data/com.bpi.jukebox' + s.file.replace('/uploads','');
-      //url = 'http://127.0.0.1:3000' + s.file;
       url = current_url + s.file.replace('/uploads','');
-      urls.push({mp3: url});
+      urls.push({title: s.name + ' - ' + s.artist, mp3: url});
       klass = (i%2 == 0) ? "dark" : "light";
-      list += '<tr class="' + klass + ' song" id="' + s.id + '"><td class="small">' + s.position  + '</td>';
+      list += '<tr class="' + klass + ' song" id="' + s.id + '" index="' + i  + '"><td class="small">' + s.position  + '</td>';
       list += '<td class="large song_artist">' + s.artist + '</td>';
       list += '<td class="large song_name">' + s.name + '</td>';
       list += '<td class="large">' + s.album + '</td>';
@@ -294,21 +296,10 @@ function renderSongs(tx, songs) {
 // Fold the page in two parts (playlists + songs)
 function foldPage() {
   var current_view = $('.ajax_content:visible') 
-  //current_view.find('.search_bar').addClass('folded');
-  //current_view.find('.search_bar input').addClass('folded');
-  //current_view.find('.list.playlists').addClass('folded');
-  current_view.find('.search_bar').animate({
-    "width": "940px"
-  }, 1500);
-  current_view.find('.search_bar input').animate({
-    "width": "83%"
-  }, 1500);
-  current_view.find('.list.playlists').animate({
-    "width": "940px"
-  }, 1500);
-  current_view.find('.unfolded').animate({
-    "right": "+=940px"
-  }, 1500, function() { $(this).removeClass('unfolded'); });
+  current_view.find('.search_bar').addClass('folded');
+  current_view.find('.search_bar input').addClass('folded');
+  current_view.find('.list.playlists').addClass('folded');
+  current_view.find('.unfolded').addClass('folded');
 }
 
 

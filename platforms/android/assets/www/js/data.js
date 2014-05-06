@@ -62,8 +62,7 @@ function getSynchronizationDate(callBack) {
 }
 
 function getSqlData(dateParam) {
-  var url = encodeURI('http://10.1.2.123:8082/synchronize' + dateParam);
-  //var url = 'http://127.0.0.1:3000/synchronize' + dateParam;
+  var url = current_server + dateParam;
   console.log('Retrieving SQL data from ' + url + '...');
   $.getJSON(url, function(data) {
     _.each(data.keys, function(key) { 

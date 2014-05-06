@@ -112,7 +112,7 @@ body {
 
 .album {
   width: 1900px;
-  height: 307px;
+  height: 425px !important;
 }
 
 .search_bar {
@@ -123,6 +123,10 @@ body {
   height: 140px;
   line-height: 140px;
   margin-bottom: 20px;
+  transition: width 2s;
+}
+.search_bar.folded {
+  width: 940px;
 }
 
 .search_bar input {
@@ -135,6 +139,10 @@ body {
   vertical-align: middle;
   margin-left: 65px;
   margin-right: 20px;
+  transition: width 2s;
+}
+.search_bar input.folded {
+  width: 83%;
 }
 
 .magnifier {
@@ -191,9 +199,11 @@ body {
   text-align: justify;
 }
 
+.playlists {
+  transition: width 2s;
+}
 .playlists.folded {
-  background-image: url(../img/readers/left_list_background.png);
-  vertical-align: middle;
+  width: 940px;
 }
 
 .songs {
@@ -206,9 +216,32 @@ body {
 .unfolded {
   position: absolute;
   right: -940px;
+  transition: all 2s;
+}
+.unfolded.folded {
+  right: 30px;
 }
 
 /* ADMIN */
+
+.admin_title {
+  float: left;
+  margin-left: 23%;
+}
+
+#legal h1 {
+  float: left;
+}
+
+.lock {
+  background-image: url(../img/common/lock.png);
+  background-size: contain;
+  width: 150px;
+  height: 200px;
+  float: right;
+  margin-top: 110px;
+  margin-left: 50px;
+}
 
 #admin ul {
   margin: 0;
